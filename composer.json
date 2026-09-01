@@ -18,8 +18,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/toreador/flarum-job-queue/issues",
-        "source": "https://github.com/toreador/flarum-job-queue"
+        "issues": "https://github.com/toreador34/flarum-job-queue/issues",
+        "source": "https://github.com/toreador34/flarum-job-queue"
     },
     "require": {
         "php": ">=7.4",
