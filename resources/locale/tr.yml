@@ -41,50 +41,46 @@ toreador-flarum-job-queue:
         prefix_help: Flarum veritabanı yapılandırmanızdan okunur.
         failed_table: Başarısız işler tablosu
         jobs_table: İşler tablosu
-      filters:
-        all_queues: Tüm kuyruklar
-        search_placeholder: Kuyruk veya iş (payload) ara...
-        requeue_all: Tümünü Yeniden Kuyruğa Al
-        requeue_all_help: Her başarısız işi kuyruğa geri taşı.
-        requeue_all_confirm: Tüm başarısız işler yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tarafından tekrar işlenecekler.
-        clear_all: Tümünü Temizle
-        clear_all_help: Başarısız iş kayıtlarını yeniden kuyruğa almadan sil.
-        clear_all_confirm: Tüm başarısız iş kayıtları kalıcı olarak silinsin mi? Bu işlem onları TEKRAR ÇALIŞTIRMAZ.
-      table:
-        id: Kimlik
-        uuid: UUID
-        queue: Kuyruk
-        job: İş
-        payload: Önizleme
-        exception: Hata
-        failed_at: Başarısızlık Zamanı
-        actions: İşlemler
-        empty: Başarısız iş bulunamadı.
-        loading: Başarısız işler yükleniyor...
-        requeue: Yeniden Kuyruğa Al
-        requeue_title: Bu işi kuyruğa geri taşı.
-        requeue_confirm: "#:id numaralı başarısız iş yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tekrar işleyecek."
-        requeued: "#:id numaralı iş başarıyla yeniden kuyruğa alındı."
-        requeued_all: ":count iş başarıyla yeniden kuyruğa alındı."
-        details: Detaylar
-        details_title: Bu işin tam yükünü ve hatasını incele.
-        delete: Sil
-        delete_title: Bu başarısız iş kaydını sil.
-        delete_confirm: "#:id numaralı başarısız iş kalıcı olarak silinsin mi? Tekrar ÇALIŞTIRILMAZ."
-        deleted: "#:id numaralı başarısız iş silindi."
-        cleared: ":count başarısız iş kaydı silindi."
-        attempts: Maks. deneme
-        timeout: Zaman aşımı (sn)
-        backoff: Bekleme (sn)
-      pagination:
-        prev: Önceki
-        next: Sonraki
-        x_of_y: ":from–:to / :total"
-      modal:
-        title: "Başarısız İş #:id"
-        description: Bu iş ne yapar?
-        payload: Yük (Payload)
-        exception: Hata
+
+    filters:
+      all_queues: Tüm kuyruklar
+      search_placeholder: Kuyruk veya iş (payload) ara...
+      requeue_all: Tümünü Yeniden Kuyruğa Al
+      requeue_all_help: Her başarısız işi kuyruğa geri taşı.
+      requeue_all_confirm: Tüm başarısız işler yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tarafından tekrar işlenecekler.
+      clear_all: Tümünü Temizle
+      clear_all_help: Başarısız iş kayıtlarını yeniden kuyruğa almadan sil.
+      clear_all_confirm: Tüm başarısız iş kayıtları kalıcı olarak silinsin mi? Bu işlem onları TEKRAR ÇALIŞTIRMAZ.
+
+    table:
+      id: Kimlik
+      queue: Kuyruk
+      job: İş
+      exception: Hata
+      failed_at: Başarısızlık Zamanı
+      actions: İşlemler
+      empty: Başarısız iş bulunamadı.
+      requeue_title: Bu işi kuyruğa geri taşı.
+      requeue_confirm: "#:id numaralı başarısız iş yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tekrar işleyecek."
+      requeued: "#:id numaralı iş başarıyla yeniden kuyruğa alındı."
+      requeued_all: ":count iş başarıyla yeniden kuyruğa alındı."
+      details_title: Bu işin tam yükünü ve hatasını incele.
+      delete_title: Bu başarısız iş kaydını sil.
+      delete_confirm: "#:id numaralı başarısız iş kalıcı olarak silinsin mi? Tekrar ÇALIŞTIRILMAZ."
+      deleted: "#:id numaralı başarısız iş silindi."
+      cleared: ":count başarısız iş kaydı silindi."
+      attempts: Maks. deneme
+      timeout: Zaman aşımı (sn)
+      backoff: Bekleme (sn)
+
+    pagination:
+      x_of_y: ":from–:to / :total"
+
+    modal:
+      title: "Başarısız İş #:id"
+      description: Bu iş ne yapar?
+      payload: Yük (Payload)
+      exception: Hata
 
   job:
     unknown: Bu işin yükü (payload) tanımlanamadı.

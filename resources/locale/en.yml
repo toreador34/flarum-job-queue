@@ -41,50 +41,46 @@ toreador-flarum-job-queue:
         prefix_help: Read from your Flarum database configuration.
         failed_table: Failed jobs table
         jobs_table: Jobs table
-      filters:
-        all_queues: All queues
-        search_placeholder: Search queue or payload...
-        requeue_all: Requeue All
-        requeue_all_help: Move every failed job back into the queue.
-        requeue_all_confirm: Requeue all failed jobs? They will be processed again by the queue worker.
-        clear_all: Clear All
-        clear_all_help: Delete all failed job records without requeueing them.
-        clear_all_confirm: Delete all failed job records permanently? This will NOT run them again.
-      table:
-        id: ID
-        uuid: UUID
-        queue: Queue
-        job: Job
-        payload: Payload preview
-        exception: Error
-        failed_at: Failed At
-        actions: Actions
-        empty: No failed jobs found.
-        loading: Loading failed jobs...
-        requeue: Requeue
-        requeue_title: Move this job back into the queue.
-        requeue_confirm: Requeue failed job #:id? It will be processed again by the queue worker.
-        requeued: Job #:id requeued successfully.
-        requeued_all: ":count job(s) requeued successfully."
-        details: Details
-        details_title: Inspect the full payload and error of this job.
-        delete: Delete
-        delete_title: Delete this failed job record.
-        delete_confirm: Delete failed job #:id permanently? It will NOT be run again.
-        deleted: Failed job #:id deleted.
-        cleared: ":count failed job record(s) removed."
-        attempts: Max tries
-        timeout: Timeout (s)
-        backoff: Backoff (s)
-      pagination:
-        prev: Prev
-        next: Next
-        x_of_y: ":from–:to of :total"
-      modal:
-        title: "Failed Job #:id"
-        description: What this job does
-        payload: Payload
-        exception: Error
+
+    filters:
+      all_queues: All queues
+      search_placeholder: Search queue or payload...
+      requeue_all: Requeue All
+      requeue_all_help: Move every failed job back into the queue.
+      requeue_all_confirm: Requeue all failed jobs? They will be processed again by the queue worker.
+      clear_all: Clear All
+      clear_all_help: Delete all failed job records without requeueing them.
+      clear_all_confirm: Delete all failed job records permanently? This will NOT run them again.
+
+    table:
+      id: ID
+      queue: Queue
+      job: Job
+      exception: Error
+      failed_at: Failed At
+      actions: Actions
+      empty: No failed jobs found.
+      requeue_title: Move this job back into the queue.
+      requeue_confirm: Requeue failed job #:id? It will be processed again by the queue worker.
+      requeued: Job #:id requeued successfully.
+      requeued_all: ":count job(s) requeued successfully."
+      details_title: Inspect the full payload and error of this job.
+      delete_title: Delete this failed job record.
+      delete_confirm: Delete failed job #:id permanently? It will NOT be run again.
+      deleted: Failed job #:id deleted.
+      cleared: ":count failed job record(s) removed."
+      attempts: Max tries
+      timeout: Timeout (s)
+      backoff: Backoff (s)
+
+    pagination:
+      x_of_y: ":from–:to of :total"
+
+    modal:
+      title: "Failed Job #:id"
+      description: What this job does
+      payload: Payload
+      exception: Error
 
   job:
     unknown: Could not identify this job's payload.
