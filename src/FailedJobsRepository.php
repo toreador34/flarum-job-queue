@@ -12,6 +12,7 @@ namespace Sjn4F\QueueManager;
 use Carbon\Carbon;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Str;
+use Psr\Log\LoggerInterface;
 use Sjn4F\QueueManager\Queue\QueueTables;
 use Throwable;
 
@@ -43,11 +44,17 @@ class FailedJobsRepository
      */
     protected $jobClassMap;
 
-    public function __construct(ConnectionInterface $db, QueueTables $tables, JobClassMap $jobClassMap)
+    /**
+     * @var LoggerInterface|null
+     */
+    protected $logger;
+
+    public function __construct(ConnectionInterface $db, QueueTables $tables, JobClassMap $jobClassMap, ?LoggerInterface $logger = null)
     {
         $this->db = $db;
         $this->tables = $tables;
         $this->jobClassMap = $jobClassMap;
+        $this->logger = $logger;
     }
 
     public function getTables(): QueueTables
@@ -116,8 +123,8 @@ class FailedJobsRepository
         }
 
         if (is_string($search) && $search !== '') {
-            $like = '%'.$search.'%';
-            $where[] = '(queue LIKE ? OR payload LIKE ?)';
+            $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], $search).'%';
+            $where[] = '(queue LIKE ? ESCAPE \'\\\' OR payload LIKE ? ESCAPE \'\\\')';
             $params[] = $like;
             $params[] = $like;
         }
@@ -232,7 +239,9 @@ class FailedJobsRepository
                 );
             });
         } catch (Throwable $e) {
-            return ['ok' => false, 'reason' => 'error', 'error' => $e->getMessage()];
+            $this->logError('Could not requeue failed job', (int) $row['id'], $e);
+
+            return ['ok' => false, 'reason' => 'error'];
         }
 
         return ['ok' => true, 'requeued' => true, 'id' => (int) $row['id']];
@@ -292,13 +301,16 @@ class FailedJobsRepository
                         );
                         $requeued++;
                     } catch (Throwable $e) {
+                        $this->logError('Could not requeue failed job', (int) $row['id'], $e);
                         $failedIds[] = (int) $row['id'];
-                        $errors[(int) $row['id']] = $e->getMessage();
+                        $errors[(int) $row['id']] = 'error';
                     }
                 }
             });
         } catch (Throwable $e) {
-            return ['requeued' => $requeued, 'failed_ids' => $failedIds, 'errors' => [(int) 0 => $e->getMessage()]];
+            $this->logError('Requeue-all transaction failed', null, $e);
+
+            return ['requeued' => $requeued, 'failed_ids' => $failedIds, 'errors' => [(int) 0 => 'error']];
         }
 
         return ['requeued' => $requeued, 'failed_ids' => $failedIds, 'errors' => $errors];
@@ -448,6 +460,14 @@ class FailedJobsRepository
             'INSERT INTO '.$this->tables->jobsTable()." ($columnList) VALUES ($placeholders)",
             $vals
         );
+    }
+
+    protected function logError(string $context, ?int $jobId, Throwable $e): void
+    {
+        if ($this->logger) {
+            $extra = $jobId !== null ? ['job_id' => $jobId] : [];
+            $this->logger->error("$context [job #$jobId]: {$e->getMessage()}", array_merge($extra, ['exception' => $e]));
+        }
     }
 
     protected function summarize(string $value, int $length): string

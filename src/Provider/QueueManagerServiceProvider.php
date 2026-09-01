@@ -33,7 +33,8 @@ class QueueManagerServiceProvider extends AbstractServiceProvider
             return new FailedJobsRepository(
                 $container->make('flarum.db'),
                 $container->make(QueueTables::class),
-                $container->make(JobClassMap::class)
+                $container->make(JobClassMap::class),
+                $container->has('log') ? $container->make('log') : null
             );
         });
     }
