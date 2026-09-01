@@ -100,4 +100,4 @@ toreador-flarum-job-queue:
     import: Harici kaynaktan veri içe aktarır.
     export: Veri dışa aktarır.
     sync: Harici bir servisle veriyi eşitler.
-    generic: ":name" adlı kuyruk işini çalıştırır.
+    generic: '":name" adlı kuyruk işini çalıştırır.'

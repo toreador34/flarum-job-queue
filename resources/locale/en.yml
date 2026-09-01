@@ -100,4 +100,4 @@ toreador-flarum-job-queue:
     import: Imports data from an external source.
     export: Exports data.
     sync: Synchronizes data with an external service.
-    generic: Runs the queued job ":name".
+    generic: 'Runs the queued job ":name".'
