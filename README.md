@@ -1,5 +1,7 @@
 # Queue Manager
 
+[GitHub](https://github.com/toreador34/flarum-job-queue) · [Packagist](https://packagist.org/packages/toreador/flarum-job-queue)
+
 Flarum 1.x admin extension for the `flarum`/`blomstra` database queue driver.
 It lists failed queue jobs, inspects their payload/exception and explains what
 each job does, allows requeueing them (individually or all at once) and can
@@ -7,20 +9,28 @@ auto-requeue stale failed jobs via the scheduled task runner — all from the
 admin panel.
 
 ```
-sjn4f/queue-manager
+toreador/flarum-job-queue
 ```
 
 ## Installation
 
 ```
-composer require sjn4f/queue-manager
+composer require toreador/flarum-job-queue
 ```
 
-> Local path install: `"repositories": [{"type": "path", "url": "path/to/flarum-job-queue"}]`
-> then `composer require sjn4f/queue-manager:*`.
+Then enable the extension:
 
-Enable the extension in the admin, then run `php flarum cache:clear`, and rebuild
-the admin JS if you installed from source (`cd js && npm run build`).
+```
+php flarum extension:enable toreador-flarum-job-queue
+php flarum cache:clear
+```
+
+> Local path install (development): add a path repository and require it:
+> `"repositories": [{"type": "path", "url": "path/to/flarum-job-queue"}]`
+> then `composer require toreador/flarum-job-queue:*`.
+
+If you installed from source, rebuild the admin JS bundle with
+`cd js && npm run build` (the committed `js/dist` is used by releases).
 
 ## What it manages
 
@@ -33,9 +43,9 @@ auto-prefixed with the value from `config.php` `database.prefix`
 | `{prefix}queue_jobs` | Pending (queued) jobs, processed by the worker |
 | `{prefix}queue_failed_jobs` | Jobs that exhausted their retry count, moved here by the failed-job controller |
 
-This extension reads the **live** prefix from the active database connection, so
-it works out of the box with any prefix. If you export the queue tables to a
-different setup you can override the prefix with the setting
+This extension reads the **live** prefix from the active database connection,
+so it works out of the box with any prefix. If you ever need to point it at a
+different prefix you can override it with the setting
 `toreador-flarum-job-queue.table_prefix`.
 
 ## Admin page
@@ -43,10 +53,10 @@ different setup you can override the prefix with the setting
 Open **Administration → Queue Manager**:
 
 - Stats cards: pending jobs, failed jobs, table names actually in use.
-- Toolbar: search (class/description), filter by queue, requeue all failed,
-  clear all failed, auto-refresh toggle.
+- Toolbar: search, filter by queue, requeue all failed, clear all failed,
+  auto-refresh toggle.
 - Table: id, uuid, queue, display name, what the job does, attempts/max tries,
-  failed at, status and per-row actions (requeue, delete, view).
+  failed at and per-row actions (requeue, delete, view).
 - The **view** modal shows the raw `payload` JSON and the `exception` text so
   you can see exactly why the job failed.
 - Requeueing moves the row back into `queue_jobs` with `attempts=0`,
@@ -63,19 +73,19 @@ php flarum queue:failed-jobs:requeue                 # process settings-driven a
 php flarum queue:failed-jobs:requeue 12 42           # requeue specific failed-job ids
 ```
 
-Enabled only when both settings are on:
+Auto-requeue on schedule is enabled with the admin settings:
 
-- `toreador-flarum-job-queue.auto_requeue.enabled` — requeue old failed jobs on schedule
-- `toreador-flarum-job-queue.auto_requeue_after` (minutes) — only jobs older than this
-  are requeued (default `60`)
+- `toreador-flarum-job-queue.auto_requeue` — requeue old failed jobs on schedule
+- `toreador-flarum-job-queue.auto_requeue_after` (minutes) — only jobs older than
+  this are requeued (default `5`; `0` disables the age filter)
 
-This means you do not need `flarum/scheduler`'s cron entry if your worker runs on
-`schedule:run` through a cron job (see Flarum scheduler docs).
+The scheduled command requeues nothing when `auto_requeue` is off. Explicit
+`queue:failed-jobs:requeue <ids...>` always works.
 
 ## What the requeue does
 
-Same operation as the admin "requeue" but run from the CLI. Equivalent SQL
-(assuming prefix `sjn4F_`, replacing `:now` with `UNIX_TIMESTAMP()` on MySQL):
+Equivalent SQL (assuming prefix `sjn4F_`, replacing `:now` with
+`UNIX_TIMESTAMP()` on MySQL):
 
 ```sql
 INSERT INTO sjn4F_queue_jobs
@@ -92,31 +102,37 @@ DELETE FROM sjn4F_queue_failed_jobs WHERE id = :failedJobId;
 Notes (all defensive, this is what the extension actually does):
 
 - Columns are only touched when they exist on the live table. On installs where
-  the jobs table has no `uuid` column the `uuid` is omitted (a fresh `Str::uuid()`
-  is emitted through the abstract layer instead).
-- Preserving the original `id` means the job keeps its position: the extension
-  inserts with the original id and lets the database generate a new one if that
-  id is already taken.
-- All statements run inside a transaction; if the insert fails the failed row is
-  left untouched.
+  the jobs table has no `uuid` column that write is omitted and a fresh
+  `Str::uuid()` is used instead.
+- Preserving the original `id` keeps the job's position: the extension inserts
+  with the original id and lets the database pick a new one if it is taken.
+- All statements run inside a transaction; if the insert fails the failed row
+  is left untouched.
 
 ## API endpoints
 
 | Method | Route | Purpose |
 |---|---|---|
-| GET | `/api/queue-manager` | Stats + start page of failed jobs |
-| GET | `/api/queue-manager/:id` | Single job detail (payload + exception) |
-| POST | `/api/queue-manager/requeue/:id` | Requeue one failed job |
-| POST | `/api/queue-manager/requeue-all` | Requeue all (optionally `?queue=`) |
-| DELETE | `/api/queue-manager/:id` | Delete one failed job record |
-| POST | `/api/queue-manager/clear` | Delete all (optionally `?queue=`) |
+| GET | `/api/queue-manager/jobs` | Stats + start page of failed jobs |
+| GET | `/api/queue-manager/jobs/:id` | Single job detail (payload + exception) |
+| POST | `/api/queue-manager/jobs/:id/requeue` | Requeue one failed job |
+| POST | `/api/queue-manager/jobs/requeue` | Requeue all (optionally `?queue=`) |
+| DELETE | `/api/queue-manager/jobs/:id` | Delete one failed job record |
+| POST | `/api/queue-manager/jobs/clear` | Delete all (optionally `?queue=`) |
 
 ## Requirements
 
-- PHP 8.1+
+- PHP 7.4+
 - Flarum `^1.2` (1.x compatibility first; 2.x support planned)
-- `flarum/core` with database queue driver (`blomstra/database-queue`)
-- Flarum scheduler or cron for the auto-requeue command
+- `blomstra/database-queue` (database queue driver) enabled in Flarum
+- Flarum scheduler (or cron running `php flarum schedule:run`) for the
+  auto-requeue command
+
+## About this fork
+
+- Composer package: `toreador/flarum-job-queue`
+- GitHub: https://github.com/toreador34/flarum-job-queue
+- Packagist: https://packagist.org/packages/toreador/flarum-job-queue
 
 ## License
 
