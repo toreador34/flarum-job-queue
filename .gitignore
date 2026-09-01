@@ -1,0 +1,6 @@
+/vendor/
+/js/node_modules/
+composer.lock
+.idea/
+.DS_Store
+*.log

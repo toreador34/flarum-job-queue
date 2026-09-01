@@ -1,0 +1,145 @@
+.QueueManagerPage {
+  &-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  &-stat {
+    background: @body-bg;
+    border: 1px solid @control-bg;
+    border-radius: @border-radius;
+    padding: 14px 16px;
+
+    & code {
+      word-break: break-all;
+    }
+
+    small {
+      display: block;
+      color: @muted-color;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  &-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+
+    .FormControl {
+      min-width: 180px;
+    }
+
+    &-spacer {
+      flex: 1 1 auto;
+    }
+  }
+
+  &-banner {
+    .alert {
+      margin: 0 0 12px;
+    }
+  }
+
+  &-table-wrap {
+    overflow-x: auto;
+    background: @body-bg;
+    border: 1px solid @control-bg;
+    border-radius: @border-radius;
+  }
+
+  table.QueueManagerPage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid @control-bg;
+      vertical-align: top;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      color: @muted-color;
+      font-weight: bold;
+      background: @control-bg;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td.QueueManagerPage-job {
+      white-space: normal;
+      min-width: 260px;
+
+      &-description {
+        margin: 0 0 4px;
+      }
+
+      &-meta {
+        color: @muted-color;
+        font-size: 12px;
+      }
+    }
+
+    td.QueueManagerPage-exception {
+      white-space: normal;
+      max-width: 320px;
+      color: @muted-color;
+      font-family: @monospace-font-family;
+    }
+
+    .QueueManagerPage-actions {
+      .Button + .Button {
+        margin-left: 4px;
+      }
+    }
+  }
+
+  &-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+    color: @muted-color;
+    font-size: 13px;
+  }
+}
+
+.QueueManagerModal {
+  max-height: 80vh;
+
+  &-description {
+    margin-bottom: 16px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  pre {
+    background: @control-bg;
+    border-radius: @border-radius;
+    padding: 10px;
+    font-size: 12px;
+    max-height: 40vh;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

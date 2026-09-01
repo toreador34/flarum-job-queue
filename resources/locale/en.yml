@@ -1,0 +1,103 @@
+toreador-flarum-job-queue:
+  admin:
+    nav:
+      queue_manager: Queue Manager
+      title: List and requeue failed database queue jobs
+
+    settings:
+      table_prefix_label: Table prefix override
+      table_prefix_help: |
+        Leave empty to auto-detect the prefix (e.g. `sjn4F_`) from your
+        Flarum database connection. Only set this if the queue tables were
+        created with a custom prefix that Flarum does not know about.
+      auto_requeue_label: Auto-requeue failed jobs
+      auto_requeue_help: |
+        When enabled, a scheduled task moves failed jobs back into the queue
+        automatically. The jobs are picked up by your queue worker (for
+        example `flarum schedule:run` + the Database Queue extension).
+      auto_requeue_after_label: Auto-requeue after (minutes)
+      auto_requeue_after_help: |
+        Only requeue failed jobs that have been failing for at least this many
+        minutes. Prevents an endless hot-loop on jobs that fail instantly.
+
+    page:
+      title: Queue Manager
+      subtitle: Inspect and re-run failed database queue jobs.
+      refresh: Refresh
+      auto_refresh: Auto refresh
+      tables_missing: |
+        The queue tables were not found. Make sure the Database Queue
+        extension (blomstra/database-queue) is enabled and that your queue
+        driver is set to `database`.
+      auto_requeue_banner: |
+        Auto-requeue is enabled. Failed jobs will be moved back into the queue
+        automatically.
+      stats:
+        pending: Pending
+        pending_help: Jobs currently waiting in the queue.
+        failed: Failed
+        failed_help: Failed jobs recorded in the failed job table.
+        prefix: Table prefix
+        prefix_help: Read from your Flarum database configuration.
+        failed_table: Failed jobs table
+        jobs_table: Jobs table
+      filters:
+        all_queues: All queues
+        search_placeholder: Search queue or payload...
+        requeue_all: Requeue All
+        requeue_all_help: Move every failed job back into the queue.
+        requeue_all_confirm: Requeue all failed jobs? They will be processed again by the queue worker.
+        clear_all: Clear All
+        clear_all_help: Delete all failed job records without requeueing them.
+        clear_all_confirm: Delete all failed job records permanently? This will NOT run them again.
+      table:
+        id: ID
+        uuid: UUID
+        queue: Queue
+        job: Job
+        payload: Payload preview
+        exception: Error
+        failed_at: Failed At
+        actions: Actions
+        empty: No failed jobs found.
+        loading: Loading failed jobs...
+        requeue: Requeue
+        requeue_title: Move this job back into the queue.
+        requeue_confirm: Requeue failed job #:id? It will be processed again by the queue worker.
+        requeued: Job #:id requeued successfully.
+        requeued_all: ":count job(s) requeued successfully."
+        details: Details
+        details_title: Inspect the full payload and error of this job.
+        delete: Delete
+        delete_title: Delete this failed job record.
+        delete_confirm: Delete failed job #:id permanently? It will NOT be run again.
+        deleted: Failed job #:id deleted.
+        cleared: ":count failed job record(s) removed."
+        attempts: Max tries
+        timeout: Timeout (s)
+        backoff: Backoff (s)
+      pagination:
+        prev: Prev
+        next: Next
+        x_of_y: ":from–:to of :total"
+      modal:
+        title: "Failed Job #:id"
+        description: What this job does
+        payload: Payload
+        exception: Error
+
+  job:
+    unknown: Could not identify this job's payload.
+    closure: Runs a closure (inline PHP code).
+    call_queued: A queued command or handler.
+    mail: Sends an email message, e.g. notifications, password resets or digests.
+    email: Sends an email message.
+    notification: Sends notifications to users.
+    webhook: Delivers a payload to an external webhook.
+    reindex: Reindexes search data.
+    sitemap: Refreshes the sitemap.
+    backup: Runs a backup task.
+    import: Imports data from an external source.
+    export: Exports data.
+    sync: Synchronizes data with an external service.
+    generic: Runs the queued job ":name".

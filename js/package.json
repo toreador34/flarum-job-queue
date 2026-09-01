@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@sjn4f/queue-manager",
+    "version": "1.0.0",
+    "prettier": "@flarum/prettier-config",
+    "dependencies": {
+        "flarum-tsconfig": "^1.0.2",
+        "flarum-webpack-config": "^2.0.2",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
+    },
+    "scripts": {
+        "dev": "webpack --mode development --watch",
+        "build": "webpack --mode production"
+    }
+}

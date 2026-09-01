@@ -1,0 +1,49 @@
+{
+    "name": "toreador/flarum-job-queue",
+    "description": "List, inspect, requeue and auto-requeue failed database queue jobs from the Flarum admin panel.",
+    "keywords": [
+        "flarum",
+        "queue",
+        "database",
+        "failed-jobs",
+        "jobs",
+        "requeue"
+    ],
+    "license": "MIT",
+    "type": "flarum-extension",
+    "authors": [
+        {
+            "name": "Toreador",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/toreador/flarum-job-queue/issues",
+        "source": "https://github.com/toreador/flarum-job-queue"
+    },
+    "require": {
+        "php": ">=7.4",
+        "flarum/core": "^1.2.0",
+        "illuminate/database": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Queue Manager",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-tasks",
+                "backgroundColor": "#1B4D3E",
+                "color": "#4CD6A7"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sjn4F\\QueueManager\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
