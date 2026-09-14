@@ -1,20 +1,20 @@
 <?php
 
 /**
- * This file is part of the Sjn4F Queue Manager extension for Flarum.
+ * This file is part of the Toreador Queue Manager extension for Flarum.
  *
  * For detailed copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Sjn4F\QueueManager\Provider;
+namespace Toreador\QueueManager\Provider;
 
 use Flarum\Foundation\AbstractServiceProvider;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Container\Container;
-use Sjn4F\QueueManager\FailedJobsRepository;
-use Sjn4F\QueueManager\JobClassMap;
-use Sjn4F\QueueManager\Queue\QueueTables;
+use Toreador\QueueManager\FailedJobsRepository;
+use Toreador\QueueManager\JobClassMap;
+use Toreador\QueueManager\Queue\QueueTables;
 
 class QueueManagerServiceProvider extends AbstractServiceProvider
 {

@@ -31,7 +31,7 @@ app.initializers.add('toreador-flarum-job-queue', () => {
       type: 'text',
       label: app.translator.trans('toreador-flarum-job-queue.admin.settings.table_prefix_label'),
       help: app.translator.trans('toreador-flarum-job-queue.admin.settings.table_prefix_help'),
-      placeholder: 'sjn4F_',
+      placeholder: 'toreador34_',
     })
     .registerSetting({
       setting: 'toreador-flarum-job-queue.auto_requeue',

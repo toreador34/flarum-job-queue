@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This file is part of the Sjn4F Queue Manager extension for Flarum.
+ * This file is part of the Toreador Queue Manager extension for Flarum.
  *
  * For detailed copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Sjn4F\QueueManager;
+namespace Toreador\QueueManager;
 
 use Flarum\Extend;
 use Illuminate\Console\Scheduling\Event;
-use Sjn4F\QueueManager\Api\Controller\ClearFailedJobsController;
-use Sjn4F\QueueManager\Api\Controller\DeleteFailedJobController;
-use Sjn4F\QueueManager\Api\Controller\ListFailedJobsController;
-use Sjn4F\QueueManager\Api\Controller\RequeueAllFailedJobsController;
-use Sjn4F\QueueManager\Api\Controller\RequeueFailedJobController;
-use Sjn4F\QueueManager\Api\Controller\ShowFailedJobController;
-use Sjn4F\QueueManager\Console\RequeueFailedJobsCommand;
-use Sjn4F\QueueManager\Provider\QueueManagerServiceProvider;
+use Toreador\QueueManager\Api\Controller\ClearFailedJobsController;
+use Toreador\QueueManager\Api\Controller\DeleteFailedJobController;
+use Toreador\QueueManager\Api\Controller\ListFailedJobsController;
+use Toreador\QueueManager\Api\Controller\RequeueAllFailedJobsController;
+use Toreador\QueueManager\Api\Controller\RequeueFailedJobController;
+use Toreador\QueueManager\Api\Controller\ShowFailedJobController;
+use Toreador\QueueManager\Console\RequeueFailedJobsCommand;
+use Toreador\QueueManager\Provider\QueueManagerServiceProvider;
 
 return [
     (new Extend\Frontend('admin'))

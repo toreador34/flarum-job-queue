@@ -1,17 +1,17 @@
 <?php
 
 /**
- * This file is part of the Sjn4F Queue Manager extension for Flarum.
+ * This file is part of the Toreador Queue Manager extension for Flarum.
  *
  * For detailed copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Sjn4F\QueueManager\Console;
+namespace Toreador\QueueManager\Console;
 
 use Flarum\Console\AbstractCommand;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Sjn4F\QueueManager\FailedJobsRepository;
+use Toreador\QueueManager\FailedJobsRepository;
 use Symfony\Component\Console\Input\InputArgument;
 
 class RequeueFailedJobsCommand extends AbstractCommand

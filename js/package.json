@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@sjn4f/queue-manager",
+    "name": "@toreador/queue-manager",
     "version": "1.0.0",
     "prettier": "@flarum/prettier-config",
     "dependencies": {

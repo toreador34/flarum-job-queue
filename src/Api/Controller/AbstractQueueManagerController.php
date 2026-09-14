@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the Sjn4F Queue Manager extension for Flarum.
+ * This file is part of the Toreador Queue Manager extension for Flarum.
  *
  * For detailed copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Sjn4F\QueueManager\Api\Controller;
+namespace Toreador\QueueManager\Api\Controller;
 
 use Flarum\Http\RequestUtil;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,7 +15,7 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Sjn4F\QueueManager\FailedJobsRepository;
+use Toreador\QueueManager\FailedJobsRepository;
 
 abstract class AbstractQueueManagerController implements RequestHandlerInterface
 {

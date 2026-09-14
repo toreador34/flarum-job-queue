@@ -7,7 +7,7 @@ toreador-flarum-job-queue:
     settings:
       table_prefix_label: Table prefix override
       table_prefix_help: |
-        Leave empty to auto-detect the prefix (e.g. `sjn4F_`) from your
+        Leave empty to auto-detect the prefix (e.g. `toreador34_`) from your
         Flarum database connection. Only set this if the queue tables were
         created with a custom prefix that Flarum does not know about.
       auto_requeue_label: Auto-requeue failed jobs

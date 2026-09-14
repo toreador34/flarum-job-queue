@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the Sjn4F Queue Manager extension for Flarum.
+ * This file is part of the Toreador Queue Manager extension for Flarum.
  *
  * For detailed copyright and license information, please view the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Sjn4F\QueueManager\Queue;
+namespace Toreador\QueueManager\Queue;
 
 use Illuminate\Database\Connection;
 use Illuminate\Database\ConnectionInterface;
@@ -19,7 +19,7 @@ use Throwable;
  *
  * Flarum applies the database prefix from `config.php` to every table created
  * by its migration system, so the same queue tables look like
- * `sjn4F_queue_failed_jobs` on one installation and `myforum_queue_failed_jobs`
+ * `toreador34_queue_failed_jobs` on one installation and `myforum_queue_failed_jobs`
  * on another. We therefore never hard-code a prefix: we read it from the live
  * database connection (or honour an explicit override from the extension
  * settings) and build the table names ourselves.

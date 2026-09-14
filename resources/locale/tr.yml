@@ -7,7 +7,7 @@ toreador-flarum-job-queue:
     settings:
       table_prefix_label: Tablo önekini elle belirt
       table_prefix_help: |
-        Boş bırakılırsa önek (ör. `sjn4F_`) Flarum veritabanı bağlantınızdan
+        Boş bırakılırsa önek (ör. `toreador34_`) Flarum veritabanı bağlantınızdan
         otomatik okunur. Yalnızca kuyruk tabloları Flarum'un bilmediği özel bir
         önekle oluşturulduysa burayı doldurun.
       auto_requeue_label: Başarısız işleri otomatik yeniden kuyruğa al

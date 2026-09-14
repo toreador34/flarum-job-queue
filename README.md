@@ -36,7 +36,7 @@ If you installed from source, rebuild the admin JS bundle with
 
 Flarum's `blomstra/database-queue` driver stores jobs in two tables that are
 auto-prefixed with the value from `config.php` `database.prefix`
-(e.g. `sjn4F_`):
+(e.g. `toreador34_`):
 
 | Table | Purpose |
 |---|---|
@@ -84,19 +84,19 @@ The scheduled command requeues nothing when `auto_requeue` is off. Explicit
 
 ## What the requeue does
 
-Equivalent SQL (assuming prefix `sjn4F_`, replacing `:now` with
+Equivalent SQL (assuming prefix `toreador34_`, replacing `:now` with
 `UNIX_TIMESTAMP()` on MySQL):
 
 ```sql
-INSERT INTO sjn4F_queue_jobs
+INSERT INTO toreador34_queue_jobs
     (uuid, queue, payload, attempts, reserved_at, available_at, created_at)
 SELECT uuid, queue, payload, 0, NULL,
        :now,                                  -- available_at = now()
        :now                                   -- created_at = now()
-FROM sjn4F_queue_failed_jobs
+FROM toreador34_queue_failed_jobs
 WHERE id = :failedJobId;                      -- or WHERE 1=1 for "requeue all"
 
-DELETE FROM sjn4F_queue_failed_jobs WHERE id = :failedJobId;
+DELETE FROM toreador34_queue_failed_jobs WHERE id = :failedJobId;
 ```
 
 Notes (all defensive, this is what the extension actually does):

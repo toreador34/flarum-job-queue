@@ -40,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Sjn4F\\QueueManager\\": "src/"
+            "Toreador\\QueueManager\\": "src/"
         }
     },
     "config": {
