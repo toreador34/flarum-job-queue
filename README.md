@@ -21,7 +21,7 @@ composer require toreador/flarum-job-queue
 Then enable the extension:
 
 ```
-php flarum extension:enable toreador-flarum-job-queue
+php flarum extension:enable toreador-job-queue
 php flarum cache:clear
 ```
 

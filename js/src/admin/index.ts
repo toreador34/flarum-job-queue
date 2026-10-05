@@ -4,7 +4,7 @@ import LinkButton from 'flarum/common/components/LinkButton';
 import { extend } from 'flarum/common/extend';
 import QueueManagerPage from './components/QueueManagerPage';
 
-app.initializers.add('toreador-flarum-job-queue', () => {
+app.initializers.add('toreador-job-queue', () => {
   app.routes['queue-manager'] = {
     path: '/queue-manager',
     component: QueueManagerPage,
@@ -25,7 +25,7 @@ app.initializers.add('toreador-flarum-job-queue', () => {
   });
 
   app.extensionData
-    .for('toreador-flarum-job-queue')
+    .for('toreador-job-queue')
     .registerSetting({
       setting: 'toreador-flarum-job-queue.table_prefix',
       type: 'text',
