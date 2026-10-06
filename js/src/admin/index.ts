@@ -26,6 +26,26 @@ app.initializers.add('toreador-job-queue', () => {
 
   app.extensionData
     .for('toreador-job-queue')
+    .registerSetting(() =>
+      m(
+        'div',
+        { className: 'Form-group' },
+        m(
+          LinkButton,
+          {
+            className: 'Button Button--primary',
+            icon: 'fas fa-tasks',
+            href: app.route('queue-manager'),
+          },
+          app.translator.trans('toreador-flarum-job-queue.admin.settings.open_list_button')
+        ),
+        m(
+          'p',
+          { className: 'helpText' },
+          app.translator.trans('toreador-flarum-job-queue.admin.settings.open_list_help')
+        )
+      )
+    )
     .registerSetting({
       setting: 'toreador-flarum-job-queue.table_prefix',
       type: 'text',

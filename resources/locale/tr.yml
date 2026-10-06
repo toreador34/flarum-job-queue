@@ -5,6 +5,11 @@ toreador-flarum-job-queue:
       title: Başarısız veritabanı kuyruk işlerini listele ve yeniden kuyruğa al
 
     settings:
+      open_list_button: Başarısız iş listesini aç
+      open_list_help: |
+        Başarısız işler ayrı bir sayfada listelenir; böylece siz bu ayarları
+        değiştirirken liste kullanılabilir kalır. Aynı sayfaya admin sol
+        menüsündeki "Kuyruk Yöneticisi" bağlantısından da ulaşabilirsiniz.
       table_prefix_label: Tablo önekini elle belirt
       table_prefix_help: |
         Boş bırakılırsa önek (ör. `toreador34_`) Flarum veritabanı bağlantınızdan

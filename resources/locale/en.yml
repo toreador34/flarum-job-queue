@@ -5,6 +5,11 @@ toreador-flarum-job-queue:
       title: List and requeue failed database queue jobs
 
     settings:
+      open_list_button: Open failed jobs list
+      open_list_help: |
+        Failed jobs are listed on a dedicated page so the list stays usable
+        while you change these settings. You can also reach it from the
+        "Queue Manager" item in the admin sidebar.
       table_prefix_label: Table prefix override
       table_prefix_help: |
         Leave empty to auto-detect the prefix (e.g. `toreador34_`) from your
