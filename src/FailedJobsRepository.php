@@ -53,15 +53,21 @@ class FailedJobsRepository
     protected $jobClassMap;
 
     /**
+     * @var JobPayloadInspector
+     */
+    protected $inspector;
+
+    /**
      * @var LoggerInterface|null
      */
     protected $logger;
 
-    public function __construct(ConnectionInterface $db, QueueTables $tables, JobClassMap $jobClassMap, ?LoggerInterface $logger = null)
+    public function __construct(ConnectionInterface $db, QueueTables $tables, JobClassMap $jobClassMap, JobPayloadInspector $inspector, ?LoggerInterface $logger = null)
     {
         $this->db = $db;
         $this->tables = $tables;
         $this->jobClassMap = $jobClassMap;
+        $this->inspector = $inspector;
         $this->logger = $logger;
     }
 
@@ -195,6 +201,7 @@ class FailedJobsRepository
             'max_tries' => $described['max_tries'],
             'timeout' => $described['timeout'],
             'backoff' => $described['backoff'],
+            'details' => $this->inspector->inspect($payload),
             'payload_summary' => $this->summarize($payload, 400),
             'exception_head' => $this->summarize((string) ($row['exception'] ?? ''), 300),
             'failed_at' => $this->formatDate(isset($row['failed_at']) ? (string) $row['failed_at'] : ''),

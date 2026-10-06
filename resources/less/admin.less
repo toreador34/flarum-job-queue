@@ -105,6 +105,17 @@
       font-family: @monospace-font-family;
     }
 
+    td.QueueManagerPage-details {
+      white-space: normal;
+      min-width: 200px;
+      max-width: 320px;
+      font-size: 12px;
+
+      div + div {
+        margin-top: 2px;
+      }
+    }
+
     .QueueManagerPage-actions {
       .Button + .Button {
         margin-left: 4px;
@@ -131,6 +142,19 @@
 
     p {
       margin: 0;
+    }
+  }
+
+  &-details {
+    margin-bottom: 16px;
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 2px;
     }
   }
 

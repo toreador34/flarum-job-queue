@@ -84,6 +84,7 @@ toreador-flarum-job-queue:
       attempts: Max tries
       timeout: Timeout (s)
       backoff: Backoff (s)
+      details: Details
 
     pagination:
       x_of_y: "{from}–{to} of {total}"
@@ -91,6 +92,7 @@ toreador-flarum-job-queue:
     modal:
       title: "Failed Job #{id}"
       description: What this job does
+      details: Details
       payload: Payload
       exception: Error
 
@@ -101,6 +103,7 @@ toreador-flarum-job-queue:
     mail: Sends an email message, e.g. notifications, password resets or digests.
     email: Sends an email message.
     notification: Sends notifications to users.
+    telegram: Sends a Telegram notification.
     webhook: Delivers a payload to an external webhook.
     reindex: Reindexes search data.
     sitemap: Refreshes the sitemap.
@@ -109,3 +112,13 @@ toreador-flarum-job-queue:
     export: Exports data.
     sync: Synchronizes data with an external service.
     generic: 'Runs the queued job "{name}".'
+
+    detail:
+      notification: Notification
+      mailable: Email
+      recipients: Recipients
+      discussion: Discussion
+      post: Post
+      channels: Channels
+      subject: Subject
+      message: Message

@@ -10,10 +10,12 @@
 namespace Toreador\QueueManager\Provider;
 
 use Flarum\Foundation\AbstractServiceProvider;
+use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Toreador\QueueManager\FailedJobsRepository;
 use Toreador\QueueManager\JobClassMap;
+use Toreador\QueueManager\JobPayloadInspector;
 use Toreador\QueueManager\Queue\QueueTables;
 
 class QueueManagerServiceProvider extends AbstractServiceProvider
@@ -29,11 +31,20 @@ class QueueManagerServiceProvider extends AbstractServiceProvider
 
         $this->container->singleton(JobClassMap::class);
 
+        $this->container->singleton(JobPayloadInspector::class, function (Container $container) {
+            return new JobPayloadInspector(
+                $container->make('flarum.db'),
+                $container->make(QueueTables::class),
+                $container->make(Translator::class)
+            );
+        });
+
         $this->container->singleton(FailedJobsRepository::class, function (Container $container) {
             return new FailedJobsRepository(
                 $container->make('flarum.db'),
                 $container->make(QueueTables::class),
                 $container->make(JobClassMap::class),
+                $container->make(JobPayloadInspector::class),
                 $container->has('log') ? $container->make('log') : null
             );
         });

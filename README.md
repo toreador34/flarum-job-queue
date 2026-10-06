@@ -55,8 +55,9 @@ Open **Administration → Queue Manager**:
 - Stats cards: pending jobs, failed jobs, table names actually in use.
 - Toolbar: search, filter by queue, requeue all failed, clear all failed,
   auto-refresh toggle.
-- Table: id, uuid, queue, display name, what the job does, attempts/max tries,
-  failed at and per-row actions (requeue, delete, view).
+- Table: id, uuid, queue, display name, what the job does, human-readable
+  details (recipients, notification type, discussion, e-mail subject), attempts/
+  max tries, failed at and per-row actions (requeue, delete, view).
 - The **view** modal shows the raw `payload` JSON and the `exception` text so
   you can see exactly why the job failed.
 - Requeueing moves the row back into `queue_jobs` with `attempts=0`,

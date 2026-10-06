@@ -261,6 +261,7 @@ export default class QueueManagerPage extends Component {
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.id')}</th>
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.queue')}</th>
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.job')}</th>
+              <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.details')}</th>
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.exception')}</th>
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.failed_at')}</th>
               <th>{app.translator.trans('toreador-flarum-job-queue.admin.table.actions')}</th>
@@ -298,6 +299,15 @@ export default class QueueManagerPage extends Component {
             </div>
           ) : null}
           {meta.length ? <div className="QueueManagerPage-job-meta">{meta.join(' · ')}</div> : null}
+        </td>
+        <td className="QueueManagerPage-details">
+          {row.details && row.details.length
+            ? row.details.slice(0, 4).map((detail, i) => (
+                <div key={i}>
+                  <strong>{detail.label}:</strong> {detail.value}
+                </div>
+              ))
+            : '—'}
         </td>
         <td className="QueueManagerPage-exception">
           {row.exception_head || '—'}

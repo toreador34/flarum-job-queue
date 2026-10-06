@@ -1,5 +1,10 @@
 import app from 'flarum/admin/app';
 
+export interface JobDetail {
+  label: string;
+  value: string;
+}
+
 export interface FailedJobRow {
   id: number;
   uuid: string | null;
@@ -11,6 +16,7 @@ export interface FailedJobRow {
   max_tries: number | null;
   timeout: number | null;
   backoff: number | null;
+  details: JobDetail[];
   payload_summary: string;
   exception_head: string;
   failed_at: string | null;

@@ -149,6 +149,7 @@ class JobClassMap
         $map = [
             'Email' => 'email',
             'Mail' => 'mail',
+            'Telegram' => 'telegram',
             'Notification' => 'notification',
             'Webhook' => 'webhook',
             'Sitemap' => 'sitemap',

@@ -85,6 +85,7 @@ toreador-flarum-job-queue:
       attempts: Maks. deneme
       timeout: Zaman aşımı (sn)
       backoff: Bekleme (sn)
+      details: Ayrıntı
 
     pagination:
       x_of_y: "{from}–{to} / {total}"
@@ -92,6 +93,7 @@ toreador-flarum-job-queue:
     modal:
       title: "Başarısız İş #{id}"
       description: Bu iş ne yapar?
+      details: Ayrıntılar
       payload: Yük (Payload)
       exception: Hata
 
@@ -102,6 +104,7 @@ toreador-flarum-job-queue:
     mail: E-posta mesajı gönderir, ör. bildirimler, şifre sıfırlama veya özetler.
     email: E-posta mesajı gönderir.
     notification: Kullanıcılara bildirim gönderir.
+    telegram: Telegram bildirimi gönderir.
     webhook: Harici bir webhook'a veri iletir.
     reindex: Arama verilerini yeniden dizinler.
     sitemap: Site haritasını yeniler.
@@ -110,3 +113,13 @@ toreador-flarum-job-queue:
     export: Veri dışa aktarır.
     sync: Harici bir servisle veriyi eşitler.
     generic: '"{name}" adlı kuyruk işini çalıştırır.'
+
+    detail:
+      notification: Bildirim
+      mailable: E-posta
+      recipients: Alıcılar
+      discussion: Konu
+      post: Gönderi
+      channels: Kanallar
+      subject: Konu
+      message: Mesaj

@@ -42,6 +42,19 @@ export default class FailedJobDetailModal extends Modal {
           </p> : null}
         </div>
 
+        {d.details && d.details.length ? (
+          <div className="QueueManagerModal-details">
+            <h4>{app.translator.trans('toreador-flarum-job-queue.admin.modal.details')}</h4>
+            <ul>
+              {d.details.map((detail: any, i: number) => (
+                <li key={i}>
+                  <strong>{detail.label}:</strong> {detail.value}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
         <h4>{app.translator.trans('toreador-flarum-job-queue.admin.modal.payload')}</h4>
         <pre>{d.payload}</pre>
 
