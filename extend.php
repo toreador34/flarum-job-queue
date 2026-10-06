@@ -33,7 +33,8 @@ return [
     (new Extend\Settings())
         ->default('toreador-flarum-job-queue.table_prefix', '')
         ->default('toreador-flarum-job-queue.auto_requeue', false)
-        ->default('toreador-flarum-job-queue.auto_requeue_after', 5),
+        ->default('toreador-flarum-job-queue.auto_requeue_after', 5)
+        ->default('toreador-flarum-job-queue.auto_requeue_max_attempts', 1),
 
     (new Extend\Console())
         ->command(RequeueFailedJobsCommand::class)

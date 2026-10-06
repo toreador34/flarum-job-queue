@@ -19,6 +19,12 @@ toreador-flarum-job-queue:
       auto_requeue_after_help: |
         Only requeue failed jobs that have been failing for at least this many
         minutes. Prevents an endless hot-loop on jobs that fail instantly.
+      auto_requeue_max_attempts_label: Auto-requeue limit per job
+      auto_requeue_max_attempts_help: |
+        How many times the scheduler may automatically requeue the same failed
+        job. Once a job reaches this limit it stays in the failed list until
+        you requeue it manually, so a permanently failing job cannot loop and
+        spam repeatedly. Set to 0 for no limit. Default: 1.
 
     page:
       title: Queue Manager
@@ -39,6 +45,7 @@ toreador-flarum-job-queue:
         failed_help: Failed jobs recorded in the failed job table.
         prefix: Table prefix
         prefix_help: Read from your Flarum database configuration.
+        prefix_none: none (tables are not prefixed)
         failed_table: Failed jobs table
         jobs_table: Jobs table
 

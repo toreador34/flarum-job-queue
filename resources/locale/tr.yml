@@ -19,6 +19,13 @@ toreador-flarum-job-queue:
       auto_requeue_after_help: |
         Bu dakikadan daha uzun süredir başarısız olan işler yeniden kuyruğa
         alınır. Anında başarısız olan işlerde sonsuz döngüyü önler.
+      auto_requeue_max_attempts_label: İş başına otomatik yeniden kuyruğa alma sınırı
+      auto_requeue_max_attempts_help: |
+        Zamanlayıcının aynı başarısız işi en fazla kaç kez otomatik olarak
+        yeniden kuyruğa alacağı. Sınıra ulaşan iş, siz elle yeniden kuyruğa
+        alana kadar başarısız listesinde kalır; böylece sürekli başarısız olan
+        bir iş sonsuz döngüye girip spam üretemez. Sınırsız için 0 girin.
+        Varsayılan: 1.
 
     page:
       title: Kuyruk Yöneticisi
@@ -39,6 +46,7 @@ toreador-flarum-job-queue:
         failed_help: Başarısız iş tablosunda kayıtlı iş sayısı.
         prefix: Tablo öneki
         prefix_help: Flarum veritabanı yapılandırmanızdan okunur.
+        prefix_none: yok (tablolar öneksiz)
         failed_table: Başarısız işler tablosu
         jobs_table: İşler tablosu
 

@@ -45,5 +45,12 @@ app.initializers.add('toreador-job-queue', () => {
       label: app.translator.trans('toreador-flarum-job-queue.admin.settings.auto_requeue_after_label'),
       help: app.translator.trans('toreador-flarum-job-queue.admin.settings.auto_requeue_after_help'),
       min: 0,
+    })
+    .registerSetting({
+      setting: 'toreador-flarum-job-queue.auto_requeue_max_attempts',
+      type: 'number',
+      label: app.translator.trans('toreador-flarum-job-queue.admin.settings.auto_requeue_max_attempts_label'),
+      help: app.translator.trans('toreador-flarum-job-queue.admin.settings.auto_requeue_max_attempts_help'),
+      min: 0,
     });
 });

@@ -78,9 +78,20 @@ Auto-requeue on schedule is enabled with the admin settings:
 - `toreador-flarum-job-queue.auto_requeue` — requeue old failed jobs on schedule
 - `toreador-flarum-job-queue.auto_requeue_after` (minutes) — only jobs older than
   this are requeued (default `5`; `0` disables the age filter)
+- `toreador-flarum-job-queue.auto_requeue_max_attempts` — how many times the
+  scheduler may requeue the same job (default `1`; `0` = no limit). Once a job
+  reaches the limit it stays in the failed list until you requeue it manually,
+  so a permanently failing job cannot loop forever and spam notifications or
+  emails.
+
+Loop protection works because every requeue increments a `requeue_attempts`
+counter inside the job payload. Laravel stores the raw payload when the job
+fails again, so the counter survives the requeue → fail → failed-jobs cycle.
+The counter is ignored by the queue worker and only read by the extension.
 
 The scheduled command requeues nothing when `auto_requeue` is off. Explicit
-`queue:failed-jobs:requeue <ids...>` always works.
+`queue:failed-jobs:requeue <ids...>` (and the manual buttons in the admin
+panel) always work, regardless of the limit.
 
 ## What the requeue does
 

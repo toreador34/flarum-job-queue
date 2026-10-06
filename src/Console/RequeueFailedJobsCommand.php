@@ -56,10 +56,15 @@ class RequeueFailedJobsCommand extends AbstractCommand
             }
 
             $minutes = (int) $this->settings->get('toreador-flarum-job-queue.auto_requeue_after', 5);
-            $result = $this->failedJobs->requeueAll($minutes, null);
+            $maxAttempts = (int) $this->settings->get('toreador-flarum-job-queue.auto_requeue_max_attempts', 1);
+            $result = $this->failedJobs->requeueAll($minutes, null, $maxAttempts > 0 ? $maxAttempts : null);
         }
 
         $this->info('Requeued '.$result['requeued'].' failed job(s).');
+
+        if (($result['skipped'] ?? 0) > 0) {
+            $this->info('Skipped '.$result['skipped'].' failed job(s) that reached the auto-requeue limit; requeue them manually if needed.');
+        }
 
         foreach ($result['errors'] as $id => $error) {
             $this->error('Failed job #'.$id.' could not be requeued: '.$error);

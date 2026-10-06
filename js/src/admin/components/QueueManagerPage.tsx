@@ -141,7 +141,9 @@ export default class QueueManagerPage extends Component {
         <div className="QueueManagerPage-stat" title={app.translator.trans('toreador-flarum-job-queue.admin.page.stats.prefix_help')}>
           <small>{app.translator.trans('toreador-flarum-job-queue.admin.page.stats.prefix')}</small>
           <p>
-            <code>{s.prefix || '…'}</code>
+            <code>
+              {s.stats ? s.prefix || app.translator.trans('toreador-flarum-job-queue.admin.page.stats.prefix_none') : '…'}
+            </code>
           </p>
         </div>
         <div className="QueueManagerPage-stat">

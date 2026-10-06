@@ -30,6 +30,14 @@ use Throwable;
 class FailedJobsRepository
 {
     /**
+     * Payload key used to remember how many times a failed job has been
+     * requeued. It travels with the job payload, so it survives the
+     * requeue -> fail -> failed-jobs cycle and lets auto-requeue stop
+     * after a configurable number of attempts instead of looping forever.
+     */
+    public const REQUEUE_ATTEMPTS_KEY = 'requeue_attempts';
+
+    /**
      * @var ConnectionInterface
      */
     protected $db;
@@ -277,18 +285,37 @@ class FailedJobsRepository
      * Requeue every eligible failed job. Used by the "requeue all" button and
      * by the scheduled auto-requeue command.
      *
-     * @param int         $olderThanMinutes Only requeue jobs that failed more
-     *                                      than this many minutes ago (0 = all).
-     * @param string|null $queue            Optional queue name filter.
-     * @return array{requeued: int, failed_ids: int[], errors: array<int, string>}
+     * @param int         $olderThanMinutes   Only requeue jobs that failed more
+     *                                        than this many minutes ago (0 = all).
+     * @param string|null $queue              Optional queue name filter.
+     * @param int|null    $maxRequeueAttempts When set, jobs that have already
+     *                                        been requeued this many times are
+     *                                        skipped. Null = no limit (manual
+     *                                        requeue). Auto-requeue passes the
+     *                                        configured limit so a permanently
+     *                                        failing job cannot loop forever.
+     * @return array{requeued: int, skipped: int, failed_ids: int[], errors: array<int, string>}
      */
-    public function requeueAll(int $olderThanMinutes, ?string $queue): array
+    public function requeueAll(int $olderThanMinutes, ?string $queue, ?int $maxRequeueAttempts = null): array
     {
         $rows = $this->eligibleRows($olderThanMinutes, $queue);
 
         $requeued = 0;
+        $skipped = 0;
         $failedIds = [];
         $errors = [];
+
+        if ($maxRequeueAttempts !== null) {
+            $rows = array_values(array_filter($rows, function (array $row) use ($maxRequeueAttempts, &$skipped) {
+                if ($this->requeueAttempts((string) ($row['payload'] ?? '')) < $maxRequeueAttempts) {
+                    return true;
+                }
+
+                $skipped++;
+
+                return false;
+            }));
+        }
 
         try {
             $this->db->transaction(function () use ($rows, &$requeued, &$failedIds, &$errors) {
@@ -310,10 +337,10 @@ class FailedJobsRepository
         } catch (Throwable $e) {
             $this->logError('Requeue-all transaction failed', null, $e);
 
-            return ['requeued' => $requeued, 'failed_ids' => $failedIds, 'errors' => [(int) 0 => 'error']];
+            return ['requeued' => $requeued, 'skipped' => $skipped, 'failed_ids' => $failedIds, 'errors' => [(int) 0 => 'error']];
         }
 
-        return ['requeued' => $requeued, 'failed_ids' => $failedIds, 'errors' => $errors];
+        return ['requeued' => $requeued, 'skipped' => $skipped, 'failed_ids' => $failedIds, 'errors' => $errors];
     }
 
     /**
@@ -418,7 +445,7 @@ class FailedJobsRepository
         $vals[] = (string) $row['queue'];
 
         $cols[] = 'payload';
-        $vals[] = (string) $row['payload'];
+        $vals[] = $this->withRequeueAttempt((string) $row['payload']);
 
         if (in_array('attempts', $jobsColumns, true)) {
             $cols[] = 'attempts';
@@ -460,6 +487,40 @@ class FailedJobsRepository
             'INSERT INTO '.$this->tables->jobsTable()." ($columnList) VALUES ($placeholders)",
             $vals
         );
+    }
+
+    /**
+     * How many times this payload has already been requeued (0 when unknown).
+     */
+    protected function requeueAttempts(string $payload): int
+    {
+        $decoded = json_decode($payload, true);
+
+        if (! is_array($decoded) || ! isset($decoded[self::REQUEUE_ATTEMPTS_KEY])) {
+            return 0;
+        }
+
+        return max(0, (int) $decoded[self::REQUEUE_ATTEMPTS_KEY]);
+    }
+
+    /**
+     * Return the payload with its requeue counter incremented. Laravel ignores
+     * unknown top-level keys, and the raw payload is stored again verbatim when
+     * the job fails, so the counter is preserved across retry cycles.
+     */
+    protected function withRequeueAttempt(string $payload): string
+    {
+        $decoded = json_decode($payload, true);
+
+        if (! is_array($decoded)) {
+            return $payload;
+        }
+
+        $decoded[self::REQUEUE_ATTEMPTS_KEY] = $this->requeueAttempts($payload) + 1;
+
+        $encoded = json_encode($decoded);
+
+        return is_string($encoded) ? $encoded : $payload;
     }
 
     protected function logError(string $context, ?int $jobId, Throwable $e): void
