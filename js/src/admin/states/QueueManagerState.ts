@@ -127,7 +127,7 @@ export default class QueueManagerState {
         method: 'POST',
         url: this.apiBase + '/jobs/' + id + '/requeue',
       });
-      app.alerts.show({ type: 'success', children: app.translator.trans('toreador-flarum-job-queue.admin.table.requeued', { id }) });
+      app.alerts.show({ type: 'success' }, app.translator.trans('toreador-flarum-job-queue.admin.table.requeued', { id }));
       await this.load(true);
       return !!(res as any) && (res as any).ok;
     } catch (e) {
@@ -144,7 +144,7 @@ export default class QueueManagerState {
         body: queue ? { queue } : {},
       });
       const count = (res as any).requeued || 0;
-      app.alerts.show({ type: 'success', children: app.translator.trans('toreador-flarum-job-queue.admin.table.requeued_all', { count }) });
+      app.alerts.show({ type: 'success' }, app.translator.trans('toreador-flarum-job-queue.admin.table.requeued_all', { count }));
       await this.load(true);
       return true;
     } catch (e) {
@@ -156,7 +156,7 @@ export default class QueueManagerState {
   async remove(id: number): Promise<boolean> {
     try {
       await app.request({ method: 'DELETE', url: this.apiBase + '/jobs/' + id });
-      app.alerts.show({ type: 'success', children: app.translator.trans('toreador-flarum-job-queue.admin.table.deleted', { id }) });
+      app.alerts.show({ type: 'success' }, app.translator.trans('toreador-flarum-job-queue.admin.table.deleted', { id }));
       await this.load(true);
       return true;
     } catch (e) {
@@ -173,7 +173,7 @@ export default class QueueManagerState {
         body: queue ? { queue } : {},
       });
       const count = (res as any).deleted || 0;
-      app.alerts.show({ type: 'success', children: app.translator.trans('toreador-flarum-job-queue.admin.table.cleared', { count }) });
+      app.alerts.show({ type: 'success' }, app.translator.trans('toreador-flarum-job-queue.admin.table.cleared', { count }));
       await this.load(true);
       return true;
     } catch (e) {
@@ -184,6 +184,6 @@ export default class QueueManagerState {
 
   surfaceError(e: any) {
     const reason = e && e.statusReason ? e.statusReason : String(e && e.message ? e.message : e);
-    app.alerts.show({ type: 'error', children: reason });
+    app.alerts.show({ type: 'error' }, reason);
   }
 }

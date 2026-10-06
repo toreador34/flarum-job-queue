@@ -74,10 +74,10 @@ export default class FailedJobDetailModal extends Modal {
       });
       this.detail = res.data;
     } catch (e) {
-      app.alerts.show({
-        type: 'error',
-        children: e && e.statusReason ? e.statusReason : String(e),
-      });
+      app.alerts.show(
+        { type: 'error' },
+        e && e.statusReason ? e.statusReason : String(e)
+      );
     } finally {
       this.loading = false;
       m.redraw();
