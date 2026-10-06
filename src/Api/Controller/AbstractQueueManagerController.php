@@ -38,7 +38,12 @@ abstract class AbstractQueueManagerController implements RequestHandlerInterface
 
     protected function json(array $data, int $status = 200): JsonResponse
     {
-        return new JsonResponse($data, $status);
+        return new JsonResponse(
+            $data,
+            $status,
+            [],
+            JsonResponse::DEFAULT_JSON_FLAGS | JSON_INVALID_UTF8_SUBSTITUTE
+        );
     }
 
     protected function routeParam(ServerRequestInterface $request, string $key)

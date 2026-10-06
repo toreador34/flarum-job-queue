@@ -69,23 +69,23 @@ toreador-flarum-job-queue:
       actions: İşlemler
       empty: Başarısız iş bulunamadı.
       requeue_title: Bu işi kuyruğa geri taşı.
-      requeue_confirm: "#:id numaralı başarısız iş yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tekrar işleyecek."
-      requeued: "#:id numaralı iş başarıyla yeniden kuyruğa alındı."
-      requeued_all: ":count iş başarıyla yeniden kuyruğa alındı."
+      requeue_confirm: "#{id} numaralı başarısız iş yeniden kuyruğa alınsın mı? Kuyruk çalıştırıcı tekrar işleyecek."
+      requeued: "#{id} numaralı iş başarıyla yeniden kuyruğa alındı."
+      requeued_all: "{count} iş başarıyla yeniden kuyruğa alındı."
       details_title: Bu işin tam yükünü ve hatasını incele.
       delete_title: Bu başarısız iş kaydını sil.
-      delete_confirm: "#:id numaralı başarısız iş kalıcı olarak silinsin mi? Tekrar ÇALIŞTIRILMAZ."
-      deleted: "#:id numaralı başarısız iş silindi."
-      cleared: ":count başarısız iş kaydı silindi."
+      delete_confirm: "#{id} numaralı başarısız iş kalıcı olarak silinsin mi? Tekrar ÇALIŞTIRILMAZ."
+      deleted: "#{id} numaralı başarısız iş silindi."
+      cleared: "{count} başarısız iş kaydı silindi."
       attempts: Maks. deneme
       timeout: Zaman aşımı (sn)
       backoff: Bekleme (sn)
 
     pagination:
-      x_of_y: ":from–:to / :total"
+      x_of_y: "{from}–{to} / {total}"
 
     modal:
-      title: "Başarısız İş #:id"
+      title: "Başarısız İş #{id}"
       description: Bu iş ne yapar?
       payload: Yük (Payload)
       exception: Hata
@@ -104,4 +104,4 @@ toreador-flarum-job-queue:
     import: Harici kaynaktan veri içe aktarır.
     export: Veri dışa aktarır.
     sync: Harici bir servisle veriyi eşitler.
-    generic: '":name" adlı kuyruk işini çalıştırır.'
+    generic: '"{name}" adlı kuyruk işini çalıştırır.'

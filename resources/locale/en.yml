@@ -68,23 +68,23 @@ toreador-flarum-job-queue:
       actions: Actions
       empty: No failed jobs found.
       requeue_title: Move this job back into the queue.
-      requeue_confirm: Requeue failed job #:id? It will be processed again by the queue worker.
-      requeued: Job #:id requeued successfully.
-      requeued_all: ":count job(s) requeued successfully."
+      requeue_confirm: Requeue failed job #{id}? It will be processed again by the queue worker.
+      requeued: Job #{id} requeued successfully.
+      requeued_all: "{count} job(s) requeued successfully."
       details_title: Inspect the full payload and error of this job.
       delete_title: Delete this failed job record.
-      delete_confirm: Delete failed job #:id permanently? It will NOT be run again.
-      deleted: Failed job #:id deleted.
-      cleared: ":count failed job record(s) removed."
+      delete_confirm: Delete failed job #{id} permanently? It will NOT be run again.
+      deleted: Failed job #{id} deleted.
+      cleared: "{count} failed job record(s) removed."
       attempts: Max tries
       timeout: Timeout (s)
       backoff: Backoff (s)
 
     pagination:
-      x_of_y: ":from–:to of :total"
+      x_of_y: "{from}–{to} of {total}"
 
     modal:
-      title: "Failed Job #:id"
+      title: "Failed Job #{id}"
       description: What this job does
       payload: Payload
       exception: Error
@@ -103,4 +103,4 @@ toreador-flarum-job-queue:
     import: Imports data from an external source.
     export: Exports data.
     sync: Synchronizes data with an external service.
-    generic: 'Runs the queued job ":name".'
+    generic: 'Runs the queued job "{name}".'
