@@ -19,7 +19,7 @@ toreador-flarum-job-queue:
       auto_requeue_help: |
         Etkinleştirildiğinde planlı bir görev, başarısız işleri otomatik olarak
         kuyruğa geri taşır. İşler kuyruk çalıştırıcınız tarafından işlenir
-        (ör. `flarum schedule:run` + Database Queue eklentisi).
+        (ör. `flarum schedule:run` + çekirdekte gömülü veritabanı kuyruk sürücüsü).
       auto_requeue_after_label: Kaç dakika sonra yeniden kuyruğa alınsın
       auto_requeue_after_help: |
         Bu dakikadan daha uzun süredir başarısız olan işler yeniden kuyruğa
@@ -38,9 +38,9 @@ toreador-flarum-job-queue:
       refresh: Yenile
       auto_refresh: Otomatik yenile
       tables_missing: |
-        Kuyruk tabloları bulunamadı. Database Queue eklentisinin
-        (blomstra/database-queue) etkin olduğundan ve kuyruk sürücünüzün
-        `database` olarak ayarlandığından emin olun.
+        Kuyruk tabloları bulunamadı. `config.php` içinde kuyruk sürücünüzün
+        `database` olarak ayarlandığından emin olun; Flarum 2.x veritabanı
+        kuyruk sürücüsünü çekirdekte barındırır, ek eklenti gerekmez.
       auto_requeue_banner: |
         Otomatik yeniden kuyruğa alma etkin. Başarısız işler otomatik olarak
         kuyruğa geri taşınacak.

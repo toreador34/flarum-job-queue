@@ -1,15 +1,14 @@
 import app from 'flarum/admin/app';
-import Component from 'flarum/common/Component';
+import Page from 'flarum/common/components/Page';
 import Button from 'flarum/common/components/Button';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import Select from 'flarum/common/components/Select';
 import Switch from 'flarum/common/components/Switch';
-import icon from 'flarum/common/helpers/icon';
-import humanTime from 'flarum/common/utils/humanTime';
+import humanTime from 'flarum/common/helpers/humanTime';
 import FailedJobDetailModal from './FailedJobDetailModal';
 import QueueManagerState from '../states/QueueManagerState';
 
-export default class QueueManagerPage extends Component {
+export default class QueueManagerPage extends Page {
   state = new QueueManagerState();
   autoRefresh = false;
   autoRefreshInterval: any = null;
@@ -312,7 +311,7 @@ export default class QueueManagerPage extends Component {
         <td className="QueueManagerPage-exception">
           {row.exception_head || '—'}
         </td>
-        <td>{row.failed_at ? humanTime(row.failed_at) : '—'}</td>
+        <td>{row.failed_at ? humanTime(new Date(row.failed_at)) : '—'}</td>
         <td>
           <div className="QueueManagerPage-actions">
             <Button

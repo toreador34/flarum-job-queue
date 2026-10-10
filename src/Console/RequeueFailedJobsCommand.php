@@ -42,7 +42,7 @@ class RequeueFailedJobsCommand extends AbstractCommand
             ->addArgument('ids', InputArgument::IS_ARRAY | InputArgument::OPTIONAL, 'Specific failed job IDs to requeue, e.g. `flarum queue:failed-jobs:requeue 12 45`.');
     }
 
-    protected function fire()
+    protected function fire(): int
     {
         $ids = $this->input->getArgument('ids');
 
@@ -52,7 +52,7 @@ class RequeueFailedJobsCommand extends AbstractCommand
             if (! (bool) $this->settings->get('toreador-flarum-job-queue.auto_requeue', false)) {
                 $this->info('Auto-requeue is disabled in the Queue Manager settings. Nothing to do (use the admin panel or pass explicit IDs).');
 
-                return;
+                return 0;
             }
 
             $minutes = (int) $this->settings->get('toreador-flarum-job-queue.auto_requeue_after', 5);
@@ -69,5 +69,7 @@ class RequeueFailedJobsCommand extends AbstractCommand
         foreach ($result['errors'] as $id => $error) {
             $this->error('Failed job #'.$id.' could not be requeued: '.$error);
         }
+
+        return 0;
     }
 }

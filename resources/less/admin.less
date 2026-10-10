@@ -1,5 +1,3 @@
-@monospace-font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
-
 .QueueManagerPage {
   &-stats {
     display: grid;
@@ -9,9 +7,9 @@
   }
 
   &-stat {
-    background: @body-bg;
-    border: 1px solid @control-bg;
-    border-radius: @border-radius;
+    background: var(--body-bg);
+    border: 1px solid var(--control-bg);
+    border-radius: var(--border-radius);
     padding: 14px 16px;
 
     & code {
@@ -20,7 +18,7 @@
 
     small {
       display: block;
-      color: @muted-color;
+      color: var(--muted-color);
       margin-bottom: 4px;
     }
 
@@ -55,9 +53,9 @@
 
   &-table-wrap {
     overflow-x: auto;
-    background: @body-bg;
-    border: 1px solid @control-bg;
-    border-radius: @border-radius;
+    background: var(--body-bg);
+    border: 1px solid var(--control-bg);
+    border-radius: var(--border-radius);
   }
 
   table.QueueManagerPage-table {
@@ -68,16 +66,16 @@
     th,
     td {
       padding: 10px 12px;
-      border-bottom: 1px solid @control-bg;
+      border-bottom: 1px solid var(--control-bg);
       vertical-align: top;
       text-align: left;
       white-space: nowrap;
     }
 
     th {
-      color: @muted-color;
+      color: var(--muted-color);
       font-weight: bold;
-      background: @control-bg;
+      background: var(--control-bg);
     }
 
     tr:last-child td {
@@ -93,7 +91,7 @@
       }
 
       &-meta {
-        color: @muted-color;
+        color: var(--muted-color);
         font-size: 12px;
       }
     }
@@ -101,8 +99,8 @@
     td.QueueManagerPage-exception {
       white-space: normal;
       max-width: 320px;
-      color: @muted-color;
-      font-family: @monospace-font-family;
+      color: var(--muted-color);
+      font-family: source-code-pro, Monaco, Consolas, "Courier New", monospace;
     }
 
     td.QueueManagerPage-details {
@@ -129,7 +127,7 @@
     justify-content: flex-end;
     gap: 8px;
     margin-top: 12px;
-    color: @muted-color;
+    color: var(--muted-color);
     font-size: 13px;
   }
 }
@@ -159,8 +157,8 @@
   }
 
   pre {
-    background: @control-bg;
-    border-radius: @border-radius;
+    background: var(--control-bg);
+    border-radius: var(--border-radius);
     padding: 10px;
     font-size: 12px;
     max-height: 40vh;

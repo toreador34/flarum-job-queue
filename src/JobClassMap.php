@@ -9,7 +9,7 @@
 
 namespace Toreador\QueueManager;
 
-use Flarum\Locale\Translator;
+use Flarum\Locale\TranslatorInterface;
 use Throwable;
 
 /**
@@ -23,7 +23,7 @@ use Throwable;
 class JobClassMap
 {
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -38,7 +38,7 @@ class JobClassMap
         'Closure' => 'closure',
     ];
 
-    public function __construct(Translator $translator)
+    public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }

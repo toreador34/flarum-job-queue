@@ -9,7 +9,7 @@
 
 namespace Toreador\QueueManager;
 
-use Flarum\Locale\Translator;
+use Flarum\Locale\TranslatorInterface;
 use Illuminate\Database\ConnectionInterface;
 use Toreador\QueueManager\Queue\QueueTables;
 
@@ -53,7 +53,7 @@ class JobPayloadInspector
     protected $tables;
 
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -67,7 +67,7 @@ class JobPayloadInspector
      */
     protected $discussionCache = [];
 
-    public function __construct(ConnectionInterface $db, QueueTables $tables, Translator $translator)
+    public function __construct(ConnectionInterface $db, QueueTables $tables, TranslatorInterface $translator)
     {
         $this->db = $db;
         $this->tables = $tables;

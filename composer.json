@@ -23,15 +23,21 @@
         "source": "https://github.com/toreador34/flarum-job-queue"
     },
     "require": {
-        "php": ">=7.4",
-        "flarum/core": "^1.2.0",
-        "illuminate/database": "^8.0",
-        "illuminate/support": "^8.0"
+        "php": "^8.3",
+        "flarum/core": "^2.0",
+        "illuminate/database": "^13.0",
+        "illuminate/support": "^13.0"
     },
     "extra": {
         "flarum-extension": {
             "title": "Queue Manager",
             "category": "feature",
+            "database-support": [
+                "MySQL",
+                "MariaDB",
+                "PostgreSQL",
+                "SQLite"
+            ],
             "icon": {
                 "name": "fas fa-tasks",
                 "backgroundColor": "#1B4D3E",

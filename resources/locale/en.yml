@@ -18,8 +18,8 @@ toreador-flarum-job-queue:
       auto_requeue_label: Auto-requeue failed jobs
       auto_requeue_help: |
         When enabled, a scheduled task moves failed jobs back into the queue
-        automatically. The jobs are picked up by your queue worker (for
-        example `flarum schedule:run` + the Database Queue extension).
+        automatically. The jobs are picked up by your queue worker (for example
+        `flarum schedule:run` + the built-in database queue driver).
       auto_requeue_after_label: Auto-requeue after (minutes)
       auto_requeue_after_help: |
         Only requeue failed jobs that have been failing for at least this many
@@ -37,9 +37,9 @@ toreador-flarum-job-queue:
       refresh: Refresh
       auto_refresh: Auto refresh
       tables_missing: |
-        The queue tables were not found. Make sure the Database Queue
-        extension (blomstra/database-queue) is enabled and that your queue
-        driver is set to `database`.
+        The queue tables were not found. Make sure your queue driver is set to
+        `database` in `config.php`; Flarum 2.x includes the database queue
+        driver, so no extra extension is required.
       auto_requeue_banner: |
         Auto-requeue is enabled. Failed jobs will be moved back into the queue
         automatically.

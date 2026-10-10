@@ -2,11 +2,15 @@
 
 [GitHub](https://github.com/toreador34/flarum-job-queue) · [Packagist](https://packagist.org/packages/toreador/flarum-job-queue)
 
-Flarum 1.x admin extension for the `flarum`/`blomstra` database queue driver.
+Flarum 2.x admin extension for the built-in database queue driver
+(`'queue' => ['driver' => 'database']` in `config.php`).
 It lists failed queue jobs, inspects their payload/exception and explains what
 each job does, allows requeueing them (individually or all at once) and can
 auto-requeue stale failed jobs via the scheduled task runner — all from the
 admin panel.
+
+> **Flarum 1.x** is still supported by the v1 releases of this extension.
+> Version 2.x targets Flarum `^2.0` and PHP `^8.3`.
 
 ```
 toreador/flarum-job-queue
@@ -34,9 +38,9 @@ If you installed from source, rebuild the admin JS bundle with
 
 ## What it manages
 
-Flarum's `blomstra/database-queue` driver stores jobs in two tables that are
-auto-prefixed with the value from `config.php` `database.prefix`
-(e.g. `toreador34_`):
+Flarum's built-in database queue driver (since Flarum 2.x, no extra extension
+is needed) stores jobs in two tables that are auto-prefixed with the value from
+`config.php` `database.prefix` (e.g. `toreador34_`):
 
 | Table | Purpose |
 |---|---|
@@ -134,9 +138,10 @@ Notes (all defensive, this is what the extension actually does):
 
 ## Requirements
 
-- PHP 7.4+
-- Flarum `^1.2` (1.x compatibility first; 2.x support planned)
-- `blomstra/database-queue` (database queue driver) enabled in Flarum
+- PHP `^8.3`
+- Flarum `^2.0`
+- Database queue driver enabled (`'queue' => ['driver' => 'database']` in
+  `config.php`)
 - Flarum scheduler (or cron running `php flarum schedule:run`) for the
   auto-requeue command
 
